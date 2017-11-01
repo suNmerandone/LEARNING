@@ -1,2 +1,5 @@
 【網頁安全】給網頁開發新人的 XSS 攻擊 介紹與防範
 https://forum.gamer.com.tw/C.php?bsn=60292&snA=4251
+
+初學者練習 - LeetCode with Javascript
+https://skyyen999.gitbooks.io/-leetcode-with-javascript/content/
