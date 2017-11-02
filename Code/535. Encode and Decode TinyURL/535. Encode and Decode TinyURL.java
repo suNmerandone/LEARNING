@@ -10,17 +10,27 @@
  */
 import java.util.Base64;
 class Codec {
+    private String trickCode;
 
     // Encodes a URL to a shortened URL.
     public String encode(String longUrl) {
         byte[] encodedBytes = Base64.getEncoder().encode(longUrl.getBytes());
         String encodedText = new String(encodedBytes);
         
-        return encodedText;
+        // Need a mapping method here for saving unique code with url
+        trickCode = encodedText;
+        encodedText = encodedText.substring(10,20);         // This is a tricky way
+        
+        return "http://tinyurl.com/" + encodedText;
     }
 
     // Decodes a shortened URL to its original URL.
     public String decode(String shortUrl) {
+        shortUrl = shortUrl.replaceAll("http://tinyurl.com/", "");
+        
+        // Need a mapping method here for loading url with unique code
+        shortUrl = trickCode;           // This is a tricky way
+        
         byte[] decodedBytes = Base64.getDecoder().decode(shortUrl.getBytes());
         String decodedText = new String(decodedBytes);
         
@@ -64,12 +74,13 @@ public class MainClass {
         String line;
         while ((line = in.readLine()) != null) {
             String url = stringToString(line);
+            Codec code = new Codec();
             
-            String ret = new Codec().encode(url);
+            String ret = code.encode(url);
             String out = (ret);
             System.out.println("Encode = " + out);
             
-            ret = new Codec().decode( new Codec().encode(url) );
+            ret = code.decode( code.encode(url) );
             out = (ret);
             System.out.println("Decode = " + out);
         }
